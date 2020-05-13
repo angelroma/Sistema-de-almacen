@@ -20,7 +20,7 @@ a {
   padding: 10px;
   text-decoration: none;
   color: #fff;
-  font-size: 20px;
+  font-size: 18px;
 
   &:hover {
       background-color: #333333;
