@@ -8,12 +8,20 @@
     </div>
     <div>
       <router-link to="/cuenta">Mi cuenta</router-link>
+      <a href="#" v-on:click="logout">Cerrar Sesión</a>
     </div>
   </nav>
 </template>
 
 <script>
-export default {};
+export default {
+
+  methods:{
+    logout: function(){
+      this.$store.dispatch('logout');
+    }
+  }
+};
 </script>
 
 <style lang="scss" scoped>

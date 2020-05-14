@@ -20,6 +20,7 @@ export default {
 
 body {
   background-color: #e9ebee;
+
 }
 
 #app {

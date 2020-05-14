@@ -6,15 +6,18 @@ const userModule = {
         user: null
     }),
     mutations: {
-        bindUser(state, payload) {
+        loginMutation(state, payload) {
             state.user = payload.user
+        },
+        logoutMutation(state) {
+            state.user = null;
         }
     },
     actions: {
         login({ commit, state }, payload) {
             return new Promise((resolve, reject) => {
                 try {
-                    commit('bindUser', payload.user);
+                    commit('loginMutation', payload.user);
                     router.push({ name: 'product' })
                     resolve("Login successful");
                 }
@@ -23,6 +26,13 @@ const userModule = {
                 }
             })
 
+        },
+        logout({ commit }) {
+            return new Promise((resolve, reject) => {
+                commit('logoutMutation');
+                router.push({ name: 'Login' })
+                resolve();
+            })
         }
     },
     getters: {}
