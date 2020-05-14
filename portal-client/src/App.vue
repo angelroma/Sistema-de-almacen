@@ -1,5 +1,5 @@
 <template>
-  <div id="app">
+  <div id="app" class="container">
     <Navigation></Navigation>
     <router-view />
   </div>
@@ -16,11 +16,21 @@ export default {
 </script>
 
 <style lang="scss">
-//Normalization
 @import "App.scss";
 
 body {
   background-color: #e9ebee;
+}
+
+#app {
+  margin-top: 20px;
+}
+
+.title {
+  background-color: #6D6D6E;
+  padding: 5px;
+  text-align: center;
+  color: #fff;
 }
 </style>
   

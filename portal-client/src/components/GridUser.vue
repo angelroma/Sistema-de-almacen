@@ -1,16 +1,15 @@
 <template>
   <div class="grid">
     <div class="title">
-      <span>Lista de productos</span>
+      <span>Lista de usuarios</span>
     </div>
     <table>
       <tr>
         <th>#</th>
         <th>ID</th>
         <th>Nombre</th>
-        <th>Descripción</th>
-        <th>Precio</th>
-        <th>Activo</th>
+        <th>Email</th>
+        <th>Teléfono</th>
         <th>Fecha de creación</th>
       </tr>
       <tr>
@@ -25,7 +24,6 @@
         <td>Italy</td>
         <td>Italy</td>
         <td>Italy</td>
-        <td>Italy</td>
       </tr>
       <tr>
         <td>
@@ -35,7 +33,6 @@
         <td>
           <a href="#">1231</a>
         </td>
-        <td>Italy</td>
         <td>Italy</td>
         <td>Italy</td>
         <td>Italy</td>

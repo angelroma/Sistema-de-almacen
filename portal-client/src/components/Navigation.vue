@@ -1,8 +1,14 @@
 <template>
   <nav>
-    <router-link to="/productos">Productos</router-link>
-    <router-link to="/reportes">Reportes</router-link>
-    <router-link to="/inventario">Inventario</router-link>
+    <div>
+      <router-link to="/productos">Productos</router-link>
+      <router-link to="/reportes">Reportes</router-link>
+      <router-link to="/inventario">Inventario</router-link>
+      <router-link to="/usuario">Usuario</router-link>
+    </div>
+    <div>
+      <router-link to="/cuenta">Mi cuenta</router-link>
+    </div>
   </nav>
 </template>
 
@@ -14,16 +20,17 @@ export default {};
 nav {
   display: flex;
   background-color: #5f5f5f;
+  margin-bottom: 30px;
+  justify-content: space-between;
 }
 
-a {
+div, a {
   padding: 10px;
   text-decoration: none;
   color: #fff;
-  font-size: 18px;
-
   &:hover {
-      background-color: #333333;
+    background-color: #333333;
+    color: #fff;
   }
 }
 </style>
