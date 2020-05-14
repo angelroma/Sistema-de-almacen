@@ -1,6 +1,6 @@
 <template>
   <div id="app" class="container">
-    <Navigation></Navigation>
+    <Navigation v-if="this.$store.state.userModule.user !== null"/>
     <router-view />
   </div>
 </template>
@@ -11,6 +11,9 @@ import Navigation from "@/components/Navigation";
 export default {
   components: {
     Navigation
+  },
+  created: function() {
+    console.log();
   }
 };
 </script>
@@ -27,7 +30,7 @@ body {
 }
 
 .title {
-  background-color: #6D6D6E;
+  background-color: #6d6d6e;
   padding: 5px;
   text-align: center;
   color: #fff;
