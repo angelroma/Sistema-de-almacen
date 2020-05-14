@@ -5,30 +5,72 @@
     </div>
 
     <label for="name">Nombre:</label>
-    <input type="text" name="name" id="name" />
+    <input type="text" name="name" id="name" v-model="product.name"/>
 
     <label for="description">Descripción:</label>
-    <input type="text" name="description" id="description" />
+    <input type="text" name="description" id="description" v-model="product.description"/>
 
     <label for="price">Precio:</label>
-    <input type="number" name="price" id="price" />
+    <input type="number" name="price" id="price" v-model="product.price"/>
 
     <label for="category">Categoría:</label>
 
-    <select id="category" name="category">
-      <option value="volvo">Volvo</option>
-      <option value="saab">Saab</option>
-      <option value="mercedes">Mercedes</option>
-      <option value="audi">Audi</option>
+    <select id="category" name="category" v-model="product.category">
+      <option value="1">Volvo</option>
+      <option value="2">Saab</option>
+      <option value="3">Mercedes</option>
+      <option value="4">Audi</option>
     </select>
 
     <br />
-    <button>Guardar</button>
+    <button v-on:click="addProduct">Guardar</button>
   </main>
 </template>
 
 <script>
-export default {};
+import API from "@/infraestructure/api";
+
+export default {
+  data() {
+    return {
+      product: {
+        name: "",
+        description: "",
+        price: 0,
+        category: 1
+      }
+    };
+  },
+  methods: {
+    addProduct: function() {
+      let name = this.product.name;
+      let description = this.product.description;
+      let price = this.product.price;
+      let category = this.product.category;
+
+      if (name === null || name === "") {
+        return;
+      }
+      if (description === null || description === "") {
+        return;
+      }
+      if (price === null || price === "") {
+        return;
+      }
+      if (category === null || category === "") {
+        return;
+      }
+
+      API.post("/user", this.product)
+        .then(function(response) {
+          console.log(response);
+        })
+        .catch(function(error) {
+          console.log(error);
+        });
+    }
+  }
+};
 </script>
 
 <style lang="scss" scoped>

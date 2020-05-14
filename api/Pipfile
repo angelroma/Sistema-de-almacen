@@ -10,6 +10,9 @@ autopep8 = "*"
 [packages]
 pymysql = "*"
 flask = "*"
+flask_cors="*"
+jsonify = "*"
+mysql-connector = "*"
 
 [requires]
 python_version = "3.7"

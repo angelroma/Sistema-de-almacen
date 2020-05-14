@@ -13,33 +13,20 @@
         <th>Activo</th>
         <th>Fecha de creación</th>
       </tr>
-      <tr>
+
+      <tr v-for="item in productList" :key="item.id">
         <td>
           <a href="#">Editar</a> -
           <a href="#">Borrar</a>
         </td>
         <td>
-          <a href="#">43234</a>
+          <a href="#">{{item.id}}</a>
         </td>
-        <td>Italy</td>
-        <td>Italy</td>
-        <td>Italy</td>
-        <td>Italy</td>
-        <td>Italy</td>
-      </tr>
-      <tr>
-        <td>
-          <a href="#">Editar</a> -
-          <a href="#">Borrar</a>
-        </td>
-        <td>
-          <a href="#">1231</a>
-        </td>
-        <td>Italy</td>
-        <td>Italy</td>
-        <td>Italy</td>
-        <td>Italy</td>
-        <td>Italy</td>
+        <td>{{item.name}}</td>
+        <td>{{item.description}}</td>
+        <td>{{item.price}}</td>
+        <td>{{item.active}}</td>
+        <td>{{item.createdOn}}</td>
       </tr>
     </table>
   </div>
@@ -47,6 +34,23 @@
 
 <script>
 export default {
+  data() {
+    return {
+      productList: []
+    };
+  },
+  mounted() {
+    this.$store
+      .dispatch("getProductListAction")
+      .then(result => {
+        result.forEach(product => {
+          this.productList.push(product);
+        });
+      })
+      .catch(error => {
+        console.log(error);
+      });
+  }
 };
 </script>
 

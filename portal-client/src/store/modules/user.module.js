@@ -1,5 +1,6 @@
 /* eslint-disable */
 import router from "../../router/index"
+import API from "../../infraestructure/api"
 
 const userModule = {
     state: () => ({
@@ -16,14 +17,18 @@ const userModule = {
     actions: {
         login({ commit, state }, payload) {
             return new Promise((resolve, reject) => {
-                try {
-                    commit('loginMutation', payload.user);
-                    router.push({ name: 'product' })
-                    resolve("Login successful");
-                }
-                catch (e) {
-                    reject(new Error(e))
-                }
+                API.post('/login', {
+                    username: payload.username,
+                    password: payload.password
+                })
+                    .then(function (response) {
+                        commit('loginMutation', response);
+                        router.push({ name: 'product' })
+                        resolve(response);
+                    })
+                    .catch(function () {
+                        reject("Acceso no permitido,contacta al administrador.")
+                    });
             })
 
         },

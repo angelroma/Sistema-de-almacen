@@ -2,13 +2,18 @@
   <main class="login">
     <div class="login-form">
       <h1>Sistema Gestor De Almacén</h1>
+
+      <div v-show="isError" class="box-error">
+        <span>{{errorMessage}}</span>
+      </div>
+
       <div class="login-form-input">
         <input
           type="text"
-          name="email"
-          id="email"
-          placeholder="Tu correo electrónico"
-          v-model="data.email"
+          name="username"
+          id="username"
+          placeholder="Tu nombre de usuario"
+          v-model="data.username"
         />
         <br />
         <input
@@ -30,17 +35,19 @@ export default {
   data() {
     return {
       data: {
-        email: "",
-        password: ""
-      }
+        username: "admin",
+        password: "Secure!31"
+      },
+      errorMessage: "",
+      isError: false
     };
   },
   methods: {
     login: function() {
-      let email = this.data.email;
+      let username = this.data.username;
       let password = this.data.password;
 
-      if (email === null || email === "") {
+      if (username === null || username === "") {
         return;
       }
 
@@ -48,10 +55,11 @@ export default {
         return;
       }
 
-      let payload= {user: "Login"};
-
-      this.$store.dispatch("login", payload).then(response => {
-        console.log(response);
+      this.$store.dispatch("login", this.data).then(result =>{
+        console.time(result)
+      }).catch(error =>{
+        this.isError = true;
+        this.errorMessage = error
       });
     }
   }
@@ -74,5 +82,10 @@ export default {
 .login-form-input {
   display: flex;
   flex-direction: column;
+}
+.box-error {
+  padding: 5px;
+  margin-bottom: 5px;
+  color:saddlebrown
 }
 </style>
