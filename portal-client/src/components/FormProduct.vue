@@ -5,21 +5,18 @@
     </div>
 
     <label for="name">Nombre:</label>
-    <input type="text" name="name" id="name" v-model="product.name"/>
+    <input type="text" name="name" id="name" v-model="product.name" />
 
     <label for="description">Descripción:</label>
-    <input type="text" name="description" id="description" v-model="product.description"/>
+    <input type="text" name="description" id="description" v-model="product.description" />
 
     <label for="price">Precio:</label>
-    <input type="number" name="price" id="price" v-model="product.price"/>
+    <input type="number" name="price" id="price" v-model="product.price" />
 
     <label for="category">Categoría:</label>
 
     <select id="category" name="category" v-model="product.category">
-      <option value="1">Volvo</option>
-      <option value="2">Saab</option>
-      <option value="3">Mercedes</option>
-      <option value="4">Audi</option>
+      <option value="1">Prueba</option>
     </select>
 
     <br />
@@ -28,15 +25,13 @@
 </template>
 
 <script>
-import API from "@/infraestructure/api";
-
 export default {
   data() {
     return {
       product: {
-        name: "",
-        description: "",
-        price: 0,
+        name: "Test",
+        description: "Desc",
+        price: 55,
         category: 1
       }
     };
@@ -61,11 +56,12 @@ export default {
         return;
       }
 
-      API.post("/user", this.product)
-        .then(function(response) {
-          console.log(response);
+      this.$store
+        .dispatch("createProduct", this.product)
+        .then(result => {
+          console.log(result);
         })
-        .catch(function(error) {
+        .catch(error => {
           console.log(error);
         });
     }

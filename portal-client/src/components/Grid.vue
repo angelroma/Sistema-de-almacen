@@ -14,7 +14,7 @@
         <th>Fecha de creación</th>
       </tr>
 
-      <tr v-for="item in productList" :key="item.id">
+      <tr v-for="item in this.$store.state.productModule.productList" :key="item.id">
         <td>
           <a href="#">Editar</a> -
           <a href="#">Borrar</a>
@@ -34,22 +34,9 @@
 
 <script>
 export default {
-  data() {
-    return {
-      productList: []
-    };
-  },
   mounted() {
     this.$store
-      .dispatch("getProductListAction")
-      .then(result => {
-        result.forEach(product => {
-          this.productList.push(product);
-        });
-      })
-      .catch(error => {
-        console.log(error);
-      });
+      .dispatch("getProductAll")
   }
 };
 </script>

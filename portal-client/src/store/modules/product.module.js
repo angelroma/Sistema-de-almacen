@@ -9,11 +9,10 @@ const productModule = {
     mutations: {
         getProductListMutation(state, payload) {
             state.productList = payload;
-        }
+        },
     },
     actions: {
-        async  getProductListAction({ commit, state }) {
-
+        async  getProductAll({ commit, state }) {
             try {
                 let payload = [];
 
@@ -36,8 +35,24 @@ const productModule = {
             } catch (error) {
                 console.error(error);
             }
+        },
+        async createProduct({ dispatch, commit, state }, payload) {
+            let product = {
+                name: payload.name,
+                description: payload.description,
+                price: payload.price,
+                category: payload.category
+            }
 
-
+            const response = await API.post('/product/create', product)
+                .then(function (response) {
+                    console.log(response);
+                    return dispatch('getProductAll');
+                })
+                .catch(function (error) {
+                    console.log(error);
+                });
+            return response;
         }
     },
     getters: {}

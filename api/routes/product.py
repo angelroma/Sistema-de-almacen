@@ -1,4 +1,5 @@
-from flask import Blueprint, jsonify
+from flask import Blueprint, jsonify, request
+import datetime
 import mysql.connector
 
 myslq = mysql.connector.connect(
@@ -7,7 +8,6 @@ myslq = mysql.connector.connect(
     passwd="Secure!31",
     database="almacen"
 )
-
 
 product_api = Blueprint('product', __name__)
 
@@ -20,3 +20,27 @@ def getProductList():
     data = mycursor.fetchall()
 
     return jsonify(data)
+
+
+@product_api.route("/product/create", methods=['POST'])
+def create():
+    try:
+        data = request.get_json()
+        name = data.get("name", "")
+        description = data.get("description", "")
+        price = data.get("price", "")
+        active = 1
+        createdOn = datetime.datetime.now()
+        category = 1
+
+        mycursor = myslq.cursor()
+
+        sql = "INSERT INTO Product (Name, Description, Price, Active, CreatedOn, CategoryID) VALUES (%s, %s, %s, %s, %s, %s)"
+        val = (name, description, price, active, createdOn, category)
+
+        mycursor.execute(sql, val)
+        myslq.commit()
+        return "Trabajo realizado"
+    except NameError:
+        return jsonify(NameError)
+

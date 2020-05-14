@@ -1,6 +1,6 @@
 from flask import Flask
 from flask_cors import CORS
-from routes.product import product_api
+from routes.product import product_api, create
 from routes.user import user_api
 
 app = Flask(__name__)
