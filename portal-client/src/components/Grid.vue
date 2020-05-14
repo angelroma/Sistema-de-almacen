@@ -3,6 +3,9 @@
     <div class="title">
       <span>Lista de productos</span>
     </div>
+    <div class="status" v-if="isDesactivating">
+      <span>Cargando...</span>
+    </div>
     <table>
       <tr>
         <th>#</th>
@@ -17,7 +20,7 @@
       <tr v-for="item in this.$store.state.productModule.productList" :key="item.id">
         <td>
           <a href="#">Editar</a> -
-          <a href="#">Borrar</a>
+          <a href="#" v-on:click="desactivate(item.id)">Desactivar</a>
         </td>
         <td>
           <a href="#">{{item.id}}</a>
@@ -34,9 +37,26 @@
 
 <script>
 export default {
+  data() {
+    return {
+      isDesactivating: false,
+    };
+  },
+  methods: {
+    desactivate: function(id) {
+      this.isDesactivating = true;
+      let payload = {
+        id: id
+      };
+      this.$store.dispatch("desactivateProduct", payload).then(result => {
+        this.isDesactivating = false;
+        console.log(result);
+      });
+    }
+  },
+
   mounted() {
-    this.$store
-      .dispatch("getProductAll")
+    this.$store.dispatch("getProductAll");
   }
 };
 </script>
@@ -60,5 +80,8 @@ th {
 
 tr:nth-child(even) {
   background-color: #dddddd;
+}
+.status {
+  text-align: center;
 }
 </style>

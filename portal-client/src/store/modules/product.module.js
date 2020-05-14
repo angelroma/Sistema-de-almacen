@@ -1,5 +1,4 @@
 /* eslint-disable */
-import router from "../../router/index"
 import API from "../../infraestructure/api"
 
 const productModule = {
@@ -14,6 +13,8 @@ const productModule = {
     actions: {
         async  getProductAll({ commit, state }) {
             try {
+                console.log("Requiring list of products")
+
                 let payload = [];
 
                 const response = await API.get('/product/product-list');
@@ -46,13 +47,31 @@ const productModule = {
 
             const response = await API.post('/product/create', product)
                 .then(function (response) {
-                    console.log(response);
-                    return dispatch('getProductAll');
+                    dispatch('getProductAll');
+                    return response
                 })
                 .catch(function (error) {
                     console.log(error);
                 });
             return response;
+        }
+        ,
+        async desactivateProduct({ dispatch, commit, state }, payload) {
+
+            let product = {
+                producId: payload.id
+            }
+
+            const response = await API.post('/product/desactivate', product)
+                .then(function (response) {
+                    dispatch('getProductAll');
+                    return response
+                })
+                .catch(function (error) {
+                    console.log(error);
+                });
+            return response;
+
         }
     },
     getters: {}

@@ -11,7 +11,7 @@
     <input type="text" name="description" id="description" v-model="product.description" />
 
     <label for="price">Precio:</label>
-    <input type="number" name="price" id="price" v-model="product.price" />
+    <input type="number" name="price" id="price" min="0" step="any" oninput="validity.valid||(value='');" v-model="product.price" />
 
     <label for="category">Categoría:</label>
 
@@ -29,9 +29,9 @@ export default {
   data() {
     return {
       product: {
-        name: "Test",
-        description: "Desc",
-        price: 55,
+        name: "",
+        description: "",
+        price: 0,
         category: 1
       }
     };
@@ -49,7 +49,7 @@ export default {
       if (description === null || description === "") {
         return;
       }
-      if (price === null || price === "") {
+      if (price === null || price === 0) {
         return;
       }
       if (category === null || category === "") {
@@ -59,7 +59,12 @@ export default {
       this.$store
         .dispatch("createProduct", this.product)
         .then(result => {
-          console.log(result);
+          this.product.name ="";
+         this.product.description = ""
+         this.product.price = 0
+         this.product.category = 1
+
+          alert(result.data)
         })
         .catch(error => {
           console.log(error);

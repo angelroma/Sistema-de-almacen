@@ -16,7 +16,7 @@ product_api = Blueprint('product', __name__)
 def getProductList():
 
     mycursor = myslq.cursor()
-    mycursor.execute("""select * from almacen.Product""")
+    mycursor.execute("""select * from almacen.Product WHERE Active = 1""")
     data = mycursor.fetchall()
 
     return jsonify(data)
@@ -40,7 +40,25 @@ def create():
 
         mycursor.execute(sql, val)
         myslq.commit()
-        return "Trabajo realizado"
+        return "Se ha agregado un nuevo producto."
+    except NameError:
+        return jsonify(NameError)
+
+
+@product_api.route("/product/desactivate", methods=['POST'])
+def desactivate():
+    try:
+        data = request.get_json()
+        productID = data.get("producId", "")
+
+        mycursor = myslq.cursor()
+
+        sql = """UPDATE Product SET Active = 0 WHERE ID = %s"""
+        val = (productID,)
+
+        mycursor.execute(sql, val)
+        myslq.commit()
+        return "Se ha agregado un nuevo producto."
     except NameError:
         return jsonify(NameError)
 
