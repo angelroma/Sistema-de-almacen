@@ -11,7 +11,7 @@
     <input type="text" name="description" id="description" v-model="product.description" />
 
     <label for="price">Precio:</label>
-    <input type="number" name="price" id="price" min="0" step="any" oninput="validity.valid||(value='');" v-model="product.price" />
+    <input type="number" name="price" id="price" v-model="product.price" />
 
     <label for="category">Categoría:</label>
 

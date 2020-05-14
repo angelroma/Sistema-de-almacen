@@ -12,6 +12,21 @@ myslq = mysql.connector.connect(
 product_api = Blueprint('product', __name__)
 
 
+@product_api.route("/product/getById")
+def getById():
+    data = request.get_json()
+    productID = data.get("productId", "")
+    mycursor = myslq.cursor()
+
+    sql = """select * from almacen.Product WHERE ID = %s"""
+    values = (productID, )
+    mycursor.execute(sql, values)
+
+    data = mycursor.fetchone()
+
+    return jsonify(data)
+
+
 @product_api.route("/product/product-list")
 def getProductList():
 
@@ -62,3 +77,28 @@ def desactivate():
     except NameError:
         return jsonify(NameError)
 
+
+@product_api.route("/product/update", methods=['POST'])
+def update():
+    try:
+        data = request.get_json()
+        productID = data.get("id", "")
+        name = data.get("name", "")
+        description = data.get("description", "")
+        price = data.get("price", "")
+
+        print("======================================")
+        print(name)
+        print(name)
+
+
+        mycursor = myslq.cursor()
+
+        sql = "UPDATE Product SET Name = %s, Description = %s, Price = %s WHERE ID = %s"
+        val = (name, description, price, productID,)
+
+        mycursor.execute(sql, val)
+        myslq.commit()
+        return "Se ha actualizado correctamente"
+    except NameError:
+        return jsonify(NameError)

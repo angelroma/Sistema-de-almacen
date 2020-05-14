@@ -19,12 +19,10 @@
 
       <tr v-for="item in this.$store.state.productModule.productList" :key="item.id">
         <td>
-          <a href="#">Editar</a> -
+          <a href="#" v-on:click="viewProduct(item)">Ver</a>-
           <a href="#" v-on:click="desactivate(item.id)">Desactivar</a>
         </td>
-        <td>
-          <a href="#">{{item.id}}</a>
-        </td>
+        <td>{{item.id}}</td>
         <td>{{item.name}}</td>
         <td>{{item.description}}</td>
         <td>{{item.price}}</td>
@@ -39,7 +37,7 @@
 export default {
   data() {
     return {
-      isDesactivating: false,
+      isDesactivating: false
     };
   },
   methods: {
@@ -52,6 +50,9 @@ export default {
         this.isDesactivating = false;
         console.log(result);
       });
+    },
+    viewProduct: function(product) {
+      this.$store.dispatch("getProductById", product);
     }
   },
 

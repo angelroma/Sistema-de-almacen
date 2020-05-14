@@ -4,7 +4,10 @@ import Products from '../views/Products.vue'
 import User from '../views/User.vue'
 import Account from '../views/Account.vue'
 import Login from '../views/Login.vue'
+import Product from '../views/Product.vue'
+
 import store from '../store/index'
+
 
 Vue.use(VueRouter)
 
@@ -13,6 +16,11 @@ const routes = [
     path: '/productos',
     name: 'product',
     component: Products
+  },
+  {
+    path: '/producto',
+    name: 'productonly',
+    component: Product
   },
   {
     path: '/usuario',

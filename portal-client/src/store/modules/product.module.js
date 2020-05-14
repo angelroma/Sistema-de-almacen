@@ -1,16 +1,42 @@
 /* eslint-disable */
 import API from "../../infraestructure/api"
+import router from "../../router/index";
 
 const productModule = {
     state: () => ({
-        productList: null
+        productList: null,
+        product: null
     }),
     mutations: {
         getProductListMutation(state, payload) {
             state.productList = payload;
         },
+        setProduct(state, payload) {
+            state.product = payload
+        }
     },
     actions: {
+        async updateProduct({ dispatch, commit, state }, payload) {
+
+            console.log(payload)
+            const response = await API.post('/product/update', payload)
+                .then(function (response) {
+                    dispatch('getProductAll');
+                    return response
+                })
+                .catch(function (error) {
+                    console.log(error);
+                });
+            return response;
+        }
+        ,
+        async getProductById({ dispatch, commit, state }, payload) {
+
+            commit('setProduct', payload)
+
+            router.push({ name: 'productonly' })
+            return payload;
+        },
         async  getProductAll({ commit, state }) {
             try {
                 console.log("Requiring list of products")
@@ -72,7 +98,8 @@ const productModule = {
                 });
             return response;
 
-        }
+        },
+
     },
     getters: {}
 }
