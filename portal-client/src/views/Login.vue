@@ -1,16 +1,23 @@
-
-
 <template>
   <main class="login">
     <div class="login-form">
       <h1>Sistema Gestor De Almacén</h1>
       <div class="login-form-input">
-        <label for="email">Correo Electrónico:</label>
-        <input type="text" name="email" id="email" />
+        <input
+          type="text"
+          name="email"
+          id="email"
+          placeholder="Tu correo electrónico"
+          v-model="data.email"
+        />
         <br />
-        <label for="password">Contraseña:</label>
-        <input type="password" name="password" id="password" />
-        <br />
+        <input
+          type="password"
+          name="password"
+          id="password"
+          placeholder="Tu contraseña"
+          v-model="data.password"
+        />
         <br />
         <button v-on:click="login">Entrar</button>
       </div>
@@ -22,15 +29,30 @@
 export default {
   data() {
     return {
-      test: "Angel"
+      data: {
+        email: "",
+        password: ""
+      }
     };
   },
   methods: {
-    login: function(data) {
+    login: function() {
+      let email = this.data.email;
+      let password = this.data.password;
 
+      if (email === null || email === "") {
+        return;
+      }
 
-      
-      console.log("There is a login here " + data);
+      if (password === null || password === "") {
+        return;
+      }
+
+      let payload= {user: "Login"};
+
+      this.$store.dispatch("login", payload).then(response => {
+        console.log(response);
+      });
     }
   }
 };

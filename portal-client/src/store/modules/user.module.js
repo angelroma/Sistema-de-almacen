@@ -1,4 +1,6 @@
 /* eslint-disable */
+import router from "../../router/index"
+
 const userModule = {
     state: () => ({
         user: null
@@ -9,15 +11,15 @@ const userModule = {
         }
     },
     actions: {
-        login({ context }) {
-            return new Promise(resolve, reject => {
-
+        login({ commit, state }, payload) {
+            return new Promise((resolve, reject) => {
                 try {
-                    context.commit('bindUser');
-                    resolve();
+                    commit('bindUser', payload.user);
+                    router.push({ name: 'product' })
+                    resolve("Login successful");
                 }
                 catch (e) {
-                    reject(new Error(e.Message))
+                    reject(new Error(e))
                 }
             })
 
