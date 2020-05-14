@@ -1,12 +1,17 @@
 <template>
   <main>
-    <h1>data user</h1>
+      <h1>
+          Login
+      </h1>
   </main>
 </template>
 
 <script>
-export default {};
+export default {
+
+}
 </script>
 
 <style>
+
 </style>
