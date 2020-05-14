@@ -12,31 +12,31 @@ const productModule = {
         }
     },
     actions: {
-        getProductListAction({ commit, state }) {
-            return new Promise((resolve, reject) => {
+        async  getProductListAction({ commit, state }) {
 
-                let payload = [
-                    {
-                        id: 1,
-                        name: "nam1",
-                        description: "desc",
-                        price: 21.3,
-                        active: 1,
-                        createdOn: "10323:32432:34232324"
-                    },
-                    {
-                        id: 2,
-                        name: "nam1",
-                        description: "desc",
-                        price: 21.3,
-                        active: 1,
-                        createdOn: "10323:32432:34232324"
-                    }
-                ];
+            try {
+                let payload = [];
+
+                const response = await API.get('/product/product-list');
+
+                response.data.forEach(item => {
+                    payload.push({
+                        id: item[0],
+                        name: item[1],
+                        description: item[2],
+                        price: item[3],
+                        active: item[4],
+                        createdOn: item[5]
+                    })
+                });
 
                 commit('getProductListMutation', payload)
-                resolve(state.productList);
-            })
+                return state.productList;
+
+            } catch (error) {
+                console.error(error);
+            }
+
 
         }
     },
