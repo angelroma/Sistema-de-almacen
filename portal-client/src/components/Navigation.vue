@@ -4,7 +4,7 @@
       <router-link to="/productos">Productos</router-link>
       <router-link to="/reportes">Reportes</router-link>
       <router-link to="/inventario">Inventario</router-link>
-      <router-link to="/usuario">Usuario</router-link>
+      <router-link to="/usuarios">Usuarios</router-link>
     </div>
     <div>
       <router-link to="/cuenta">Mi cuenta</router-link>

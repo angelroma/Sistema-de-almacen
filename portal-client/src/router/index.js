@@ -1,10 +1,11 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
 import Products from '../views/Products.vue'
-import User from '../views/User.vue'
+import Users from '../views/Users.vue'
 import Account from '../views/Account.vue'
 import Login from '../views/Login.vue'
 import Product from '../views/Product.vue'
+import User from '../views/User.vue'
 
 import store from '../store/index'
 
@@ -23,8 +24,13 @@ const routes = [
     component: Product
   },
   {
+    path: '/usuarios',
+    name: 'Users',
+    component: Users
+  },
+  {
     path: '/usuario',
-    name: 'User',
+    name: 'user',
     component: User
   },
   {

@@ -3,40 +3,37 @@
     <div class="title">
       <span>Lista de usuarios</span>
     </div>
+    <div class="status" v-if="isDesactivating">
+      <span>Cargando...</span>
+    </div>
     <table>
       <tr>
         <th>#</th>
         <th>ID</th>
+        <th>Nombre de usuario</th>
         <th>Nombre</th>
-        <th>Email</th>
+        <th>Apellido Materno</th>
+        <th>Apellido Paterno</th>
+        <th>Correo Electrónico</th>
         <th>Teléfono</th>
+        <th>Rol ID</th>
         <th>Fecha de creación</th>
       </tr>
-      <tr>
+
+      <tr v-for="item in this.$store.state.usersModule.userList" :key="item.id">
         <td>
-          <a href="#">Editar</a> -
-          <a href="#">Borrar</a>
+          <a href="#" v-on:click="view(item)">Ver</a>-
+          <a href="#" v-on:click="desactivate(item.id)">Desactivar</a>
         </td>
-        <td>
-          <a href="#">43234</a>
-        </td>
-        <td>Italy</td>
-        <td>Italy</td>
-        <td>Italy</td>
-        <td>Italy</td>
-      </tr>
-      <tr>
-        <td>
-          <a href="#">Editar</a> -
-          <a href="#">Borrar</a>
-        </td>
-        <td>
-          <a href="#">1231</a>
-        </td>
-        <td>Italy</td>
-        <td>Italy</td>
-        <td>Italy</td>
-        <td>Italy</td>
+        <td>{{item.id}}</td>
+        <td>{{item.username}}</td>
+        <td>{{item.firstName}}</td>
+        <td>{{item.middleName}}</td>
+        <td>{{item.lastName}}</td>
+        <td>{{item.email}}</td>
+        <td>{{item.phoneNumber}}</td>
+        <td>{{item.roleId}}</td>
+        <td>{{item.createdOn}}</td>
       </tr>
     </table>
   </div>
@@ -44,6 +41,30 @@
 
 <script>
 export default {
+  data() {
+    return {
+      isDesactivating: false
+    };
+  },
+  methods: {
+    desactivate: function(id) {
+      this.isDesactivating = true;
+      let payload = {
+        id: id
+      };
+      this.$store.dispatch("desactivateUser", payload).then(result => {
+        this.isDesactivating = false;
+        console.log(result);
+      });
+    },
+    view: function(item) {
+      this.$store.dispatch("getUserById", item);
+    }
+  },
+
+  mounted() {
+    this.$store.dispatch("getUserAll");
+  }
 };
 </script>
 
@@ -66,5 +87,8 @@ th {
 
 tr:nth-child(even) {
   background-color: #dddddd;
+}
+.status {
+  text-align: center;
 }
 </style>
